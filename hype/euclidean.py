@@ -15,18 +15,19 @@ class EuclideanManifold(Manifold):
     def __init__(self, max_norm=1, **kwargs):
         self.max_norm = max_norm
 
-    def normalize(self, u):
+    def normalize(self, u):  #normalize
         d = u.size(-1)
-        u.view(-1, d).renorm_(2, 0, self.max_norm)
+        u.view(-1, d).renorm_(2, 0, self.max_norm) #each sub-tensor of input along dimension dim is normalized
         return u
 
     def distance(self, u, v):
-        return (u - v).pow(2).sum(dim=-1)
+        return (u - v).pow(2).sum(dim=-1) #pow = power
 
-    def pnorm(self, u, dim=-1):
+    def pnorm(self, u, dim=-1): #product norm
         return (u * u).sum(dim=dim).sqrt()
 
-    def rgrad(self, p, d_p):
+    def rgrad(self, p, d_p): #Riemannian gradient: Function to compute the Riemannian gradient
+                             #from the Euclidean gradient
         return d_p
 
     def expm(self, p, d_p, normalize=False, lr=None, out=None):

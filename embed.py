@@ -134,7 +134,8 @@ def main():
     # set default tensor type
     th.set_default_tensor_type('torch.DoubleTensor')
     # set device
-    device = th.device(f'cuda:{opt.gpu}' if opt.gpu >= 0 else 'cpu')
+    device = th.device('cpu')
+    # th.device(f'cuda:{opt.gpu}' if opt.gpu >= 0 else 'cpu')
 
     # select manifold to optimize on
     manifold = MANIFOLDS[opt.manifold](debug=opt.debug, max_norm=opt.maxnorm)
